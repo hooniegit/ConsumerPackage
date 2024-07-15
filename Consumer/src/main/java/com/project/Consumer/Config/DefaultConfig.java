@@ -32,11 +32,11 @@ public class DefaultConfig {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-        props.put(ConsumerConfig.GROUP_ID_CONFIG, "DemoGroup64");
+        props.put(ConsumerConfig.GROUP_ID_CONFIG, "DemoGroupMerge");
         props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, BytesDeserializer.class);
         props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, BytesDeserializer.class);
         props.put(ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG, "False");
-        props.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "latest");
+        props.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest");
         props.put(ConsumerConfig.FETCH_MIN_BYTES_CONFIG, "1048576");
         props.put(ConsumerConfig.SESSION_TIMEOUT_MS_CONFIG, "30000");
         props.put(ConsumerConfig.RECONNECT_BACKOFF_MS_CONFIG, "1000");
