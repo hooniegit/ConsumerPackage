@@ -100,19 +100,19 @@
     
     <!-- 로그를 기록할 로거 지정 -->
     <Loggers>
-        <Logger name="com.hooniegit.Modules" level="debug" additivity="false">
+        <Logger name="com.project.Consumer.Modules" level="debug" additivity="false">
             <AppenderRef ref="ModulesConsole"/>
             <AppenderRef ref="ModulesFile"/>
         </Logger>
-        <Logger name="com.hooniegit.Consumer" level="debug" additivity="false">
+        <Logger name="com.project.Consumer.Service" level="debug" additivity="false">
             <AppenderRef ref="ConsumerConsole"/>
             <AppenderRef ref="ConsumerFile"/>
         </Logger>
-        <Logger name="com.hooniegit.LMAX" level="debug" additivity="false">
+        <Logger name="com.project.Consumer.Disruptor" level="debug" additivity="false">
             <AppenderRef ref="LMAXConsole"/>
             <AppenderRef ref="LMAXFile"/>
         </Logger>
-        <Logger name="com.hooniegit.Tasks" level="debug" additivity="false">
+        <Logger name="com.project.Consumer.Config" level="debug" additivity="false">
             <AppenderRef ref="TasksConsole"/>
             <AppenderRef ref="TasksFile"/>
         </Logger>

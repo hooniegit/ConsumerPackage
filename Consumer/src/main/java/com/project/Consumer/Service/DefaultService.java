@@ -12,6 +12,7 @@ import org.apache.kafka.clients.consumer.OffsetAndMetadata;
 import org.springframework.kafka.support.Acknowledgment;
 import org.apache.kafka.common.TopicPartition;
 import org.springframework.kafka.annotation.KafkaListener;
+import org.springframework.kafka.config.ConcurrentKafkaListenerContainerFactory;
 import org.springframework.stereotype.Service;
 
 import com.lmax.disruptor.BlockingWaitStrategy;
@@ -21,11 +22,13 @@ import com.lmax.disruptor.dsl.Disruptor;
 import com.lmax.disruptor.dsl.ProducerType;
 import com.project.Consumer.Disruptor.TaskEvent;
 import com.project.Consumer.Disruptor.TaskEventHandler;
+import com.wat.grpc.Client;
 
 @Service
 public class DefaultService {
 	private Map<TopicPartition, OffsetAndMetadata> currentOffsets = new HashMap<>();
 	private RingBuffer<TaskEvent> ringBuffer;
+	public Client client;
 	
 	public DefaultService() {
         // [Define] LMAX Disruptor & Handler & Ring Buffer
@@ -37,9 +40,10 @@ public class DefaultService {
                 ProducerType.SINGLE,
                 new BlockingWaitStrategy() // SleepingWaitStrategy or BlockingWaitStrategy
         );
-        WorkHandler<TaskEvent>[] handlers = new TaskEventHandler[20]; // add if NECESSARY
+        client = new Client();
+        WorkHandler<TaskEvent>[] handlers = new TaskEventHandler[5]; // add if NECESSARY
         for (int i = 0; i < handlers.length; i++) {
-            handlers[i] = new TaskEventHandler();
+            handlers[i] = new TaskEventHandler(client);
         }
         disruptor.handleEventsWithWorkerPool(handlers);
         disruptor.start();
@@ -54,11 +58,13 @@ public class DefaultService {
     	// record.offset()
     	// record.timestamp()
     	
+    	ringBuffer.publishEvent((event, sequence) -> event.setRecord(record));
+    	System.out.println(">>>>>>>> Sent Event to Handler");
     	// [Event/Async] Create & Send to Handler
-    	CompletableFuture<Void> future = CompletableFuture.runAsync(() -> {
-    		ringBuffer.publishEvent((event, sequence) -> event.setRecord(record));
-            System.out.println(">>>>>>>> Sent Event to Handler");
-        });
+//    	CompletableFuture<Void> future = CompletableFuture.runAsync(() -> {
+//    		ringBuffer.publishEvent((event, sequence) -> event.setRecord(record));
+//    		System.out.println(">>>>>>>> Sent Event to Handler");
+//        });
     	
     	// [Commit/Async] Offset
         currentOffsets.put(
@@ -66,15 +72,15 @@ public class DefaultService {
             new OffsetAndMetadata(record.offset() + 1, null)
         );
         consumer.commitAsync((offsets, exception) -> {
-            if (exception != null) {
-                System.err.printf("Failed to commit offsets: %s%n", exception.getMessage());
-            } else {
-                System.out.printf("Offsets committed: %s%n", offsets);
-            }
+//            if (exception != null) {
+//                System.err.printf("Failed to commit offsets: %s%n", exception.getMessage());
+//            } else {
+//                System.out.printf("Offsets committed: %s%n", offsets);
+//            }
         });
         
         // [Initialize]
-        future = null;
+//        future = null;
         consumer = null;
         
 //        // [Commit/Manual] Offset

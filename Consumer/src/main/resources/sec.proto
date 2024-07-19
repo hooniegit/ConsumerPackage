@@ -1,0 +1,26 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "com.wat.grpc";
+option java_outer_classname = "SecProto";
+
+package sec;
+
+service Greeter {
+  rpc SendData (DataList) returns (Empty);
+  rpc SendStreamData (stream DataList) returns (Empty);
+}
+
+message Data {
+  string tag = 1;
+  string unit = 2;
+  string description = 3;
+  string value = 4;
+  string timestamp = 5;
+}
+
+message DataList{
+  repeated Data dataList = 1;
+}
+
+message Empty{}

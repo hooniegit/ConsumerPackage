@@ -40,8 +40,7 @@
 	                <groupId>org.springframework.boot</groupId>
 	                <artifactId>spring-boot-starter-logging</artifactId>
 	            </exclusion>
-	        </exclusions>
-	        
+	        </exclusions>	      
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.kafka</groupId>
@@ -117,14 +116,94 @@
 	        <artifactId>jackson-annotations</artifactId>
 	    </dependency>
 		
+		<!-- Grpc -->
+		<dependency>
+			<groupId>com.google.protobuf</groupId>
+			<artifactId>protobuf-java</artifactId>
+			<version>3.6.1</version>
+		</dependency>
+
+		<dependency>
+			<groupId>io.grpc</groupId>
+			<artifactId>grpc-netty-shaded</artifactId>
+			<version>1.15.1</version>
+		</dependency>
+		<dependency>
+			<groupId>io.grpc</groupId>
+			<artifactId>grpc-protobuf</artifactId>
+			<version>1.15.1</version>
+		</dependency>
+		<dependency>
+			<groupId>io.grpc</groupId>
+			<artifactId>grpc-stub</artifactId>
+			<version>1.15.1</version>
+		</dependency>		
+		
+		<!-- https://mvnrepository.com/artifact/javax.annotation/javax.annotation-api -->
+		<dependency>
+		    <groupId>javax.annotation</groupId>
+		    <artifactId>javax.annotation-api</artifactId>
+		    <version>1.3.2</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-devtools</artifactId>
+		</dependency>
 	</dependencies>
 
 	<build>
+		<defaultGoal>clean generate-sources compile install</defaultGoal>
+	    <resources>
+	        <resource>
+	            <directory>src/main/resources</directory>
+	            <includes>
+	                <include>**/*</include>
+	            </includes>
+	        </resource>
+   		 </resources>
+		
 		<plugins>
+			<!-- compile proto file into java files. -->
+			<plugin>
+				<groupId>com.github.os72</groupId>
+				<artifactId>protoc-jar-maven-plugin</artifactId>
+				<version>3.6.0.1</version>
+				<executions>
+					<execution>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>run</goal>
+						</goals>
+						<configuration>
+							<includeMavenTypes>direct</includeMavenTypes>
+
+							<inputDirectories>
+								<include>src/main/resources</include>
+							</inputDirectories>
+
+							<outputTargets>
+								<outputTarget>
+									<type>java</type>
+									<outputDirectory>src/main/java</outputDirectory>
+								</outputTarget>
+								<outputTarget>
+									<type>grpc-java</type>
+									<pluginArtifact>
+										io.grpc:protoc-gen-grpc-java:1.15.0</pluginArtifact>
+									<outputDirectory>src/main/java</outputDirectory>
+								</outputTarget>
+							</outputTargets>							
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>			
+			
+        	
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<configuration>
+					<mainClass>com.project.Consumer.ConsumerApplication</mainClass> 
 					<excludes>
 						<exclude>
 							<groupId>org.projectlombok</groupId>
