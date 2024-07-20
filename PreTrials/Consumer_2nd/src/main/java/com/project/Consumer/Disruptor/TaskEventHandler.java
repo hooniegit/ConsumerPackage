@@ -20,11 +20,13 @@ public class TaskEventHandler implements WorkHandler<TaskEvent> {
 //        Measurer.measureExecutionTime(() -> {
     	    // [Test] Print
             ConsumerRecord<byte[], byte[]> record = event.getRecord();
+            
+            System.out.println(record.value());
             Date date = new Date(record.timestamp());
-            System.out.println("[Received] Partition: "
-                    + record.partition() + ", Offset: " + record.offset() + 
-                    ", timestamp: " + sdf.format(date) +
-                    ", by ThreadID: " + Thread.currentThread().getId());
+//            System.out.println("[Received] Partition: "
+//                    + record.partition() + ", Offset: " + record.offset() + 
+//                    ", timestamp: " + sdf.format(date) +
+//                    ", by ThreadID: " + Thread.currentThread().getId());
             
             // [Initialize]
             record = null; // Clear

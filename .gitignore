@@ -1,5 +1,6 @@
 # Config Files
 **/srvr.ini
+**/config.ini
 
 # Log Files
 **/*.Log

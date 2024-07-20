@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- Log4j2 자체 로그 수준 정의 -->
+<Configuration status="WARN" monitorInterval="30">
+    <!-- Configuration에서 사용할 변수 정의 -->
+    <Properties>
+        <Property name="LOG_DATEFORMAT_PATTERN">yyyy-MM-dd HH:mm:ss.SSS</Property>
+        <Property name="LOG_LEVEL_PATTERN">-%5p{FATAL=red blink, ERROR=red, WARN=yellow bold, INFO=green, DEBUG=green bold, TRACE=blue} %style{${sys:PID}}{magenta} [%15.15t] %style{%-40.40C{1.}}{cyan} : %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}</Property>
+    </Properties>
+    
+    <!-- 로그 출력 대상 지정 -->
+    <Appenders>
+
+        <!-- Application -->
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout disableAnsi="false" pattern="%d${LOG_DATEFORMAT_PATTERN} %highlight${LOG_LEVEL_PATTERN}"/>
+        </Console>
+        <RollingFile name="File"
+                     fileName="log/Application/log.json"
+                     filePattern="log/Application/log_%d{yyyy-MM-dd}-%i.json">
+            <JsonLayout complete="false" compact="false" charset="UTF-8">
+                <KeyValuePair key="service" value="simple" />
+            </JsonLayout>
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1" />
+                <SizeBasedTriggeringPolicy size="10000KB" />
+            </Policies>
+            <DefaultRolloverStrategy max="20" fileIndex="min" />
+        </RollingFile>
+        
+        <!-- Modules -->
+        <Console name="ModulesConsole" target="SYSTEM_OUT">
+            <PatternLayout disableAnsi="false" pattern="%d{${LOG_DATEFORMAT_PATTERN}} %highlight{${LOG_LEVEL_PATTERN}}"/>
+        </Console>
+        <RollingFile name="ModulesFile"
+                     fileName="log/Modules/log.json"
+                     filePattern="log/Modules/log_%d{yyyy-MM-dd}-%i.json">
+            <JsonLayout complete="false" compact="false" charset="UTF-8">
+                <KeyValuePair key="service" value="simple"/>
+            </JsonLayout>
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1"/>
+                <SizeBasedTriggeringPolicy size="1MB"/>
+            </Policies>
+            <DefaultRolloverStrategy max="20" fileIndex="min"/>
+        </RollingFile>        
+
+        <!-- Consumer -->
+        <Console name="ConsumerConsole" target="SYSTEM_OUT">
+            <PatternLayout disableAnsi="false" pattern="%d{${LOG_DATEFORMAT_PATTERN}} %highlight{${LOG_LEVEL_PATTERN}}"/>
+        </Console>
+        <RollingFile name="ConsumerFile"
+                     fileName="log/Consumer/log.json"
+                     filePattern="log/Consumer/log_%d{yyyy-MM-dd}-%i.json">
+            <JsonLayout complete="false" compact="false" charset="UTF-8">
+                <KeyValuePair key="service" value="simple"/>
+            </JsonLayout>
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1"/>
+                <SizeBasedTriggeringPolicy size="1MB"/>
+            </Policies>
+            <DefaultRolloverStrategy max="20" fileIndex="min"/>
+        </RollingFile>      
+
+        <!-- LMAX -->
+        <Console name="LMAXConsole" target="SYSTEM_OUT">
+            <PatternLayout disableAnsi="false" pattern="%d{${LOG_DATEFORMAT_PATTERN}} %highlight{${LOG_LEVEL_PATTERN}}"/>
+        </Console>
+        <RollingFile name="LMAXFile"
+                     fileName="log/LMAX/log.json"
+                     filePattern="log/LMAX/log_%d{yyyy-MM-dd}-%i.json">
+            <JsonLayout complete="false" compact="false" charset="UTF-8">
+                <KeyValuePair key="service" value="simple"/>
+            </JsonLayout>
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1"/>
+                <SizeBasedTriggeringPolicy size="1MB"/>
+            </Policies>
+            <DefaultRolloverStrategy max="20" fileIndex="min"/>
+        </RollingFile>              
+
+        <!-- Tasks -->
+        <Console name="TasksConsole" target="SYSTEM_OUT">
+            <PatternLayout disableAnsi="false" pattern="%d{${LOG_DATEFORMAT_PATTERN}} %highlight{${LOG_LEVEL_PATTERN}}"/>
+        </Console>
+        <RollingFile name="TasksFile"
+                     fileName="log/Tasks/log.json"
+                     filePattern="log/Tasks/log_%d{yyyy-MM-dd}-%i.json">
+            <JsonLayout complete="false" compact="false" charset="UTF-8">
+                <KeyValuePair key="service" value="simple"/>
+            </JsonLayout>
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1"/>
+                <SizeBasedTriggeringPolicy size="1MB"/>
+            </Policies>
+            <DefaultRolloverStrategy max="20" fileIndex="min"/>
+        </RollingFile>      
+        
+    </Appenders>
+    
+    <!-- 로그를 기록할 로거 지정 -->
+    <Loggers>
+        <Logger name="com.hooniegit.Modules" level="debug" additivity="false">
+            <AppenderRef ref="ModulesConsole"/>
+            <AppenderRef ref="ModulesFile"/>
+        </Logger>
+        <Logger name="com.hooniegit.Consumer" level="debug" additivity="false">
+            <AppenderRef ref="ConsumerConsole"/>
+            <AppenderRef ref="ConsumerFile"/>
+        </Logger>
+        <Logger name="com.hooniegit.LMAX" level="debug" additivity="false">
+            <AppenderRef ref="LMAXConsole"/>
+            <AppenderRef ref="LMAXFile"/>
+        </Logger>
+        <Logger name="com.hooniegit.Tasks" level="debug" additivity="false">
+            <AppenderRef ref="TasksConsole"/>
+            <AppenderRef ref="TasksFile"/>
+        </Logger>
+        
+        <!-- 루트 로거 설정 -->
+        <Root level="info">
+            <AppenderRef ref="Console"/>
+            <AppenderRef ref="File"/>
+        </Root>
+    </Loggers>
+</Configuration>
