@@ -1,4 +1,4 @@
-package com.wat.transmitter.Config;
+package com.wat.transmitter.Default.Config;
 
 import org.ini4j.Ini;
 import org.springframework.context.ApplicationContextInitializer;

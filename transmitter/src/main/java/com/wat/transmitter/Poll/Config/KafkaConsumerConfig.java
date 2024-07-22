@@ -1,4 +1,4 @@
-package com.wat.transmitter.Config;
+package com.wat.transmitter.Poll.Config;
 
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +13,7 @@ import org.springframework.kafka.core.ConsumerFactory;
 import org.springframework.kafka.core.DefaultKafkaConsumerFactory;
 
 @Configuration
-public class DisruptorBasedConsumerConfig {
+public class KafkaConsumerConfig {
 	// [Add] KafkaProperties (Values from application.yml)
     @Autowired
     private KafkaProperties kafkaProperties;
@@ -35,7 +35,7 @@ public class DisruptorBasedConsumerConfig {
                 .getIfAvailable(() -> new DefaultKafkaConsumerFactory<>(kafkaProperties.buildConsumerProperties(sslBundles))));
 
         // [Set] Concurrency == Multi-Thread
-        factory.setConcurrency(64);
+        factory.setConcurrency(3);
         
         return factory;
     }

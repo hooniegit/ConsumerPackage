@@ -3,7 +3,7 @@ package com.wat.transmitter;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import com.wat.transmitter.Config.IniConfig;
+import com.wat.transmitter.Default.Config.IniConfig;
 
 @SpringBootApplication
 public class TransmitterApplication {
