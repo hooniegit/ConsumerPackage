@@ -5,8 +5,9 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class Item {
+public class ITEM {
 	private String tag;
+	private Integer index;
 	private String value;
 	private String timestamp;
 }

@@ -1,7 +1,9 @@
 package com.wat.transmitter.Poll.Task;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 
@@ -13,24 +15,33 @@ public class ReFactor {
 	
 	public void refactor(ConsumerRecord<byte[], byte[]> record) {
 		try {
-				List<RAW_BODY> list = deserialize(record);
-				TEST(list);
+				Map<String, List<RAW_BODY>> map = deserialize(record);
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
 	}
 
-	private List<RAW_BODY> deserialize(ConsumerRecord<byte[], byte[]> record) throws IOException {
+	private Map<String, List<RAW_BODY>> deserialize(ConsumerRecord<byte[], byte[]> record) throws IOException {
 		ObjectMapper objectMapper = new ObjectMapper();
         byte[] value = record.value();
         RAW raw = objectMapper.readValue(value, RAW.class);
-        return raw.getBody();
+        String source = raw.getHeader().getSOURCE();
+
+        Map<String, List<RAW_BODY>> map = new HashMap<>();
+        map.put(raw.getHeader().getSOURCE(), raw.getBody());
+        
+        return map;
 	}
 	
     private void TEST(List<RAW_BODY> bodyList) {
         for (RAW_BODY body : bodyList) {
             System.out.println("TAG: " + body.getTAG() + ", VALUE: " + body.getVALUE() + ", TIMESTAMP: " + body.getTIMESTAMP());
         }
+    }
+    
+    private void event(Map<String, List<RAW_BODY>> map) {
+    	// String 데이터를 기반으로 객체 ID 판별
+    	// 판별한 객체 ID의 RingBuffer로 이벤트 전송
     }
 	
 }

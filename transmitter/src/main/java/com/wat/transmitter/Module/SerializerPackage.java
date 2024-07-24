@@ -10,7 +10,7 @@ import org.apache.kafka.clients.consumer.ConsumerRecord;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import com.wat.transmitter.Transfer.Class.Item;
+import com.wat.transmitter.Transfer.Class.ITEM;
 import com.wat.transmitter.GRPC.Data;
 import com.wat.transmitter.GRPC.DataList;
 
@@ -23,13 +23,13 @@ public class SerializerPackage {
 		JsonNode root = objectMapper.readTree(json);
 		JsonNode sourceArray = root.path("source");
 
-		List<Item> AllItemList = new ArrayList<Item>();
+		List<ITEM> AllItemList = new ArrayList<ITEM>();
 
 		for (JsonNode source : sourceArray) {
 			JsonNode dataArray = source.path("data");
 
-			List<Item> itemList = objectMapper.convertValue(dataArray,
-					objectMapper.getTypeFactory().constructCollectionType(List.class, Item.class));
+			List<ITEM> itemList = objectMapper.convertValue(dataArray,
+					objectMapper.getTypeFactory().constructCollectionType(List.class, ITEM.class));
 
 			AllItemList.addAll(itemList);
 		}

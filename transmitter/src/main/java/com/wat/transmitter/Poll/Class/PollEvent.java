@@ -1,18 +1,14 @@
 package com.wat.transmitter.Poll.Class;
 
 import org.apache.kafka.clients.consumer.ConsumerRecord;
+import lombok.Getter;
+import lombok.Setter;
 import com.lmax.disruptor.EventFactory;
 
+@Getter
+@Setter
 public class PollEvent {
     private ConsumerRecord<byte[], byte[]> record;
-
-    public ConsumerRecord<byte[], byte[]> getRecord() {
-        return record;
-    }
-
-    public void setRecord(ConsumerRecord<byte[], byte[]> record) {
-        this.record = record;
-    }
     
     public final static EventFactory<PollEvent> EVENT_FACTORY = PollEvent::new;
 }

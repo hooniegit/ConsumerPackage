@@ -1,4 +1,4 @@
-package com.wat.transmitter.Poll.Service;
+package com.wat.transmitter.Transfer.Service;
 
 import java.util.concurrent.CompletableFuture;
 

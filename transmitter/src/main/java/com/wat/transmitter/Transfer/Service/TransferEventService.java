@@ -1,5 +1,8 @@
 package com.wat.transmitter.Transfer.Service;
 
-public class TransferEventService {
+import org.springframework.stereotype.Service;
 
+@Service
+public class TransferEventService {
+	// Add GRPC Options Here
 }
