@@ -11,12 +11,11 @@ import com.lmax.disruptor.dsl.ProducerType;
 
 import com.wat.transmitter.Poll.Class.PollEvent;
 import com.wat.transmitter.Poll.Handler.PollEventHandler;
-import com.wat.transmitter.GRPC.Client;
 
 public class RingBufferGenerator {
 	
-	// [Return] Ring Buffer : TaskEvent
-	public static RingBuffer<PollEvent> getTaskRingBuffer(int threadCount) {
+	// [Return] Ring Buffer : PollEvent
+	public static RingBuffer<PollEvent> getPollRingBuffer(int threadCount) {
         // [Define] LMAX Disruptor
         ThreadFactory threadFactory = Executors.defaultThreadFactory();
         Disruptor<PollEvent> disruptor = new Disruptor<>(
@@ -29,7 +28,6 @@ public class RingBufferGenerator {
         
         // [Define] Multiple Handlers
         WorkHandler<PollEvent>[] handlers = new PollEventHandler[threadCount]; // add if NECESSARY
-    	Client client = new Client();
         for (int i = 0; i < handlers.length; i++) {
             handlers[i] = new PollEventHandler();
         }

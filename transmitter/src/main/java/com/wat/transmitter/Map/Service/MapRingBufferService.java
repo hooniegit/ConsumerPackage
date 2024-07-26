@@ -10,5 +10,5 @@ import com.wat.transmitter.Module.RingBufferGenerator;
 import com.wat.transmitter.Poll.Class.PollEvent;
 
 @Service
-public class RingBufferService {
+public class MapRingBufferService {
 }

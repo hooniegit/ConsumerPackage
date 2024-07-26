@@ -14,10 +14,10 @@ import org.springframework.stereotype.Service;
 @Service
 public class KafkaConsumerService {
 	private Map<TopicPartition, OffsetAndMetadata> currentOffsets = new HashMap<>();
-	private final RingBufferService ringBufferService;
+	private final PollRingBufferService ringBufferService;
 	
 	// [Add] RingBufferService
-	public KafkaConsumerService(RingBufferService ringBufferService) {
+	public KafkaConsumerService(PollRingBufferService ringBufferService) {
 		this.ringBufferService = ringBufferService;
 	}
 	

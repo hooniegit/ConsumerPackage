@@ -2,6 +2,18 @@ spring:
   application:
     name: transmitter
 
+  mssql:
+    reference:
+      url: ${mssql.reference.url}
+      database: ${mssql.reference.database}
+      user: ${mssql.reference.user}
+      password: ${mssql.reference.password}
+    monitor:
+      url: ${mssql.monitor.url}
+      database: ${mssql.monitor.database}
+      user: ${mssql.monitor.user}
+      password: ${mssql.monitor.password}
+
   kafka:
     bootstrap-servers: ${kafka.bootstrap.servers}
     consumer:

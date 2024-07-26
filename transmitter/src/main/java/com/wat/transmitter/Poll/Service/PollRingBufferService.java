@@ -10,11 +10,11 @@ import com.wat.transmitter.Poll.Class.PollEvent;
 import com.wat.transmitter.Module.RingBufferGenerator;
 
 @Service
-public class RingBufferService {
+public class PollRingBufferService {
     private final RingBuffer<PollEvent> ringBuffer;
 
-    public RingBufferService() {
-        this.ringBuffer = RingBufferGenerator.getTaskRingBuffer(200);
+    public PollRingBufferService() {
+        this.ringBuffer = RingBufferGenerator.getPollRingBuffer(200);
     }
 
     public void handleEvent(ConsumerRecord<byte[], byte[]> record) {
