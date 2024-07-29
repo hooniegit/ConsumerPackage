@@ -20,6 +20,7 @@ public class PollEventHandler implements WorkHandler<PollEvent> {
 	public void onEvent(PollEvent event) {
 //        Measurer.measureExecutionTime(() -> {
 		
+		// [Base] Event Data
 		ConsumerRecord<byte[], byte[]> record = event.getRecord();
 		
 		// [Test/Print]  
@@ -28,7 +29,6 @@ public class PollEventHandler implements WorkHandler<PollEvent> {
 		// [DeSerialize]
 		Task refactor = new Task();
 		refactor.refactor(record);
-		
 		
 		// [Initialize]
 		record = null;

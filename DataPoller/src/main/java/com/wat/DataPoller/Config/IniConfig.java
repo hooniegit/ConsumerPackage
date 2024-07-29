@@ -14,7 +14,7 @@ import java.io.IOException;
 import java.util.Properties;
 
 public class IniConfig implements ApplicationContextInitializer<ConfigurableApplicationContext> {
-	// [Add/Initialize] ResourceLoader
+	// [Add] ResourceLoader
     private final ResourceLoader resourceLoader = new DefaultResourceLoader();
 
     // [Initialize] Caught when Spring Application Starts

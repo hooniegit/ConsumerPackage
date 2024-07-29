@@ -4,6 +4,10 @@ import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.nio.ByteBuffer;
 import java.nio.channels.SocketChannel;
+import java.util.List;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.wat.DataPoller.Class.RAW_BODY;
 
 public class NIOClient {
     private SocketChannel client;
@@ -14,8 +18,9 @@ public class NIOClient {
     }
 
     // Need to Change Data Type Here
-    public void send(String message) throws IOException {
-        ByteBuffer buffer = ByteBuffer.wrap(message.getBytes());
+    public void send(List<RAW_BODY> list) throws IOException {
+    	ObjectMapper objectMapper = new ObjectMapper();
+        ByteBuffer buffer = ByteBuffer.wrap(objectMapper.writeValueAsBytes(list));
         client.write(buffer);
     }
 

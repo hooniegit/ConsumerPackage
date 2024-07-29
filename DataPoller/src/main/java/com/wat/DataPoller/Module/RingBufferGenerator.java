@@ -15,10 +15,8 @@ import com.wat.DataPoller.Handler.PollEventHandler;
 import com.wat.DataPoller.Handler.TransferEventHandler;
 
 public class RingBufferGenerator {
-	
-	// [Return] Ring Buffer : PollEvent
+	// [LMAX] Return Ring Buffer: PollEvent
 	public static RingBuffer<PollEvent> getPollRingBuffer(int threadCount) {
-        // [Define] LMAX Disruptor
         ThreadFactory threadFactory = Executors.defaultThreadFactory();
         Disruptor<PollEvent> disruptor = new Disruptor<>(
         		PollEvent::new,
@@ -28,20 +26,19 @@ public class RingBufferGenerator {
                 new BlockingWaitStrategy() // SleepingWaitStrategy or BlockingWaitStrategy
         );
         
-        // [Define] Multiple Handlers
         WorkHandler<PollEvent>[] handlers = new PollEventHandler[threadCount]; // add if NECESSARY
         for (int i = 0; i < handlers.length; i++) {
             handlers[i] = new PollEventHandler();
         }
         
-        // [Task] Add Handlers and Start
         disruptor.handleEventsWithWorkerPool(handlers);
         disruptor.start();
         
         return disruptor.getRingBuffer();
 	}
 	
-	public static RingBuffer<TransferEvent> getTransferRingBuffer(int threadCount) {
+	// [LMAX] Return Ring Buffer: TransferEvent
+	public static RingBuffer<TransferEvent> getTransferRingBuffer(int threadCount, String LOCATION) {
         ThreadFactory threadFactory = Executors.defaultThreadFactory();
         Disruptor<TransferEvent> disruptor = new Disruptor<>(
         		TransferEvent::new,
@@ -51,13 +48,11 @@ public class RingBufferGenerator {
                 new BlockingWaitStrategy() // SleepingWaitStrategy or BlockingWaitStrategy
         );
         
-        // [Define] Multiple Handlers
         WorkHandler<TransferEvent>[] handlers = new TransferEventHandler[threadCount]; // add if NECESSARY
         for (int i = 0; i < handlers.length; i++) {
-            handlers[i] = new TransferEventHandler();
+            handlers[i] = new TransferEventHandler(LOCATION);
         }
         
-        // [Task] Add Handlers and Start
         disruptor.handleEventsWithWorkerPool(handlers);
         disruptor.start();
         

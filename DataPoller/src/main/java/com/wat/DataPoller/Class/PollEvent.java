@@ -10,5 +10,6 @@ import com.lmax.disruptor.EventFactory;
 public class PollEvent {
     private ConsumerRecord<byte[], byte[]> record;
     
+    // [Create] Create Event Based on ConsumerRecord<byte[], byte[]>
     public final static EventFactory<PollEvent> EVENT_FACTORY = PollEvent::new;
 }

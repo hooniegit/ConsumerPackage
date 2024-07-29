@@ -10,6 +10,8 @@ public class DataPollerApplication {
 
 	public static void main(String[] args) {
 	    SpringApplication application = new SpringApplication(DataPollerApplication.class);
+	    
+	    // [Config] Use config.ini
 	    application.addInitializers(new IniConfig());
 	    application.run(args);
 	}
