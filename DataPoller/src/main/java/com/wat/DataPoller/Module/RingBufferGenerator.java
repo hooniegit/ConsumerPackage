@@ -8,10 +8,10 @@ import com.lmax.disruptor.RingBuffer;
 import com.lmax.disruptor.WorkHandler;
 import com.lmax.disruptor.dsl.Disruptor;
 import com.lmax.disruptor.dsl.ProducerType;
-
-import com.wat.DataPoller.Class.PollEvent;
-import com.wat.DataPoller.Class.TransferEvent;
+import com.wat.DataPoller.Event.PollEvent;
+import com.wat.DataPoller.Event.TransferEvent;
 import com.wat.DataPoller.Handler.PollEventHandler;
+
 import com.wat.DataPoller.Handler.TransferEventHandler;
 
 public class RingBufferGenerator {
@@ -55,9 +55,9 @@ public class RingBufferGenerator {
         
         disruptor.handleEventsWithWorkerPool(handlers);
         disruptor.start();
-        
+                
         return disruptor.getRingBuffer();
+
 	}
-	
 }
 

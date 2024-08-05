@@ -1,4 +1,4 @@
-package com.wat.DataPoller.Class;
+package com.wat.DataTransmitter.Class;
 
 import java.lang.reflect.Field;
 
@@ -47,3 +47,4 @@ public class RAW_BODY {
         return result.toString();
     }
 }
+

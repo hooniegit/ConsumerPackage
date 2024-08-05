@@ -1,0 +1,7 @@
+spring:
+  application:
+    name: DataTransmitter
+
+netty:
+  server:
+    port: ${netty.port}

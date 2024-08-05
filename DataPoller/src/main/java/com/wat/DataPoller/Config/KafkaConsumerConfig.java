@@ -35,7 +35,7 @@ public class KafkaConsumerConfig {
                 .getIfAvailable(() -> new DefaultKafkaConsumerFactory<>(kafkaProperties.buildConsumerProperties(sslBundles))));
 
         // [Set] Concurrency == Multi-Thread
-        factory.setConcurrency(3);
+        factory.setConcurrency(64);
         
         return factory;
     }

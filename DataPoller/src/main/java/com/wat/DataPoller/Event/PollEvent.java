@@ -1,4 +1,4 @@
-package com.wat.DataPoller.Class;
+package com.wat.DataPoller.Event;
 
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import lombok.Getter;

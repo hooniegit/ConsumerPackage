@@ -1,23 +1,28 @@
-application:
-  name: DataPoller
+spring:
+  application:
+    name: DataPoller
 
-kafka:
-  bootstrap-servers: ${kafka.bootstrap.servers}
-  consumer:
-	group-id: ${kafka.group-id}
-	key-deserializer: org.apache.kafka.common.serialization.ByteArrayDeserializer
-	value-deserializer: org.apache.kafka.common.serialization.ByteArrayDeserializer
-	enable-auto-commit: false
-	auto-offset-reset: earliest
-	fetch.min.bytes: 1048576
-	session.timeout.ms: 30000
-	reconnect.backoff.ms: 1000
-	reconnect.backoff.max.ms: 10000
-	partition.assignment.strategy: org.apache.kafka.clients.consumer.CooperativeStickyAssignor\
+  kafka:
+    bootstrap-servers: ${kafka.bootstrap.servers}
+    consumer:
+      group-id: ${kafka.group.id}
+      key-deserializer: org.apache.kafka.common.serialization.ByteArrayDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.ByteArrayDeserializer
+      enable-auto-commit: false
+      auto-offset-reset: earliest
+      fetch.min.bytes: 1048576
+      session.timeout.ms: 30000
+      reconnect.backoff.ms: 1000
+      reconnect.backoff.max.ms: 10000
+      partition.assignment.strategy: org.apache.kafka.clients.consumer.CooperativeStickyAssignor
 
-nio:
-	host: localhost
-	port:
-		LOC01: 20201
-		LOC02: 20202
-		LOC03: 20203
+netty:
+  server:
+    host:
+      LOC01: ${netty.server.host.LOC01}
+      LOC02: ${netty.server.host.LOC02}
+      LOC03: ${netty.server.host.LOC03}
+    port: 
+      LOC01: ${netty.server.port.LOC01}
+      LOC02: ${netty.server.port.LOC02}
+      LOC03: ${netty.server.port.LOC03}

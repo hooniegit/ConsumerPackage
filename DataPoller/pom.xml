@@ -120,6 +120,12 @@
 	        <groupId>com.fasterxml.jackson.core</groupId>
 	        <artifactId>jackson-annotations</artifactId>
 	    </dependency>
+	    
+	    <!-- [Import] netty.all -->
+	    <dependency>
+	        <groupId>io.netty</groupId>
+	        <artifactId>netty-all</artifactId>
+	    </dependency>
 
 	</dependencies>
 

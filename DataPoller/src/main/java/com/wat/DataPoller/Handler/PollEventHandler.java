@@ -9,7 +9,7 @@ import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import com.wat.DataPoller.Class.PollEvent;
+import com.wat.DataPoller.Event.PollEvent;
 import com.wat.DataPoller.Module.Task;
 
 public class PollEventHandler implements WorkHandler<PollEvent> {
@@ -19,6 +19,7 @@ public class PollEventHandler implements WorkHandler<PollEvent> {
 	@Override
 	public void onEvent(PollEvent event) {
 //        Measurer.measureExecutionTime(() -> {
+		System.out.println("[Notify] Poll Event Started");
 		
 		// [Base] Event Data
 		ConsumerRecord<byte[], byte[]> record = event.getRecord();

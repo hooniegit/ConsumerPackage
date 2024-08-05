@@ -5,8 +5,7 @@ import java.util.concurrent.CompletableFuture;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.springframework.stereotype.Service;
 import com.lmax.disruptor.RingBuffer;
-
-import com.wat.DataPoller.Class.PollEvent;
+import com.wat.DataPoller.Event.PollEvent;
 import com.wat.DataPoller.Module.RingBufferGenerator;
 
 @Service
