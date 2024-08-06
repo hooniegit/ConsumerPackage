@@ -13,16 +13,21 @@ import com.wat.DataPoller.Module.RingBufferGenerator;
 
 @Service
 public class TransferRingBufferService {
+    private static final TransferRingBufferService instance = new TransferRingBufferService();
 	private final RingBuffer<TransferEvent> ringbufferLOC01;
 //	private final RingBuffer<TransferEvent> ringbufferLOC02;
 //	private final RingBuffer<TransferEvent> ringbufferLOC03;
 	
 	// [Initialize] Create Ring Buffer Service
-	public TransferRingBufferService() {
+	private TransferRingBufferService() {
 		this.ringbufferLOC01 = RingBufferGenerator.getTransferRingBuffer(20, "LOC01");
 //		this.ringbufferLOC02 = RingBufferGenerator.getTransferRingBuffer(20, "LOC02");
 //		this.ringbufferLOC03 = RingBufferGenerator.getTransferRingBuffer(20, "LOC03");
 	}
+	
+    public static TransferRingBufferService getInstance() {
+        return instance;
+    }
 	
 	// [Handler] Publish Event
 	public void handleEvent(Map<String, List<RAW_BODY>> map) {

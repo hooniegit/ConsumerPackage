@@ -21,7 +21,7 @@ public class KafkaConsumerService {
 		this.ringBufferService = ringBufferService;
 	}
 	
-    @KafkaListener(topics = "WAT01", containerFactory = "kafkaListenerContainerFactory")
+    @KafkaListener(topics = "WAT", containerFactory = "kafkaListenerContainerFactory")
     public void consume(ConsumerRecord<byte[], byte[]> record, Consumer<?, ?> consumer) {
     	
     	// [Event/Async] Create & Send to Handler

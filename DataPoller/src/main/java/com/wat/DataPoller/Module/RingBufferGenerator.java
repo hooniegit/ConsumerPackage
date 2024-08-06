@@ -11,7 +11,6 @@ import com.lmax.disruptor.dsl.ProducerType;
 import com.wat.DataPoller.Event.PollEvent;
 import com.wat.DataPoller.Event.TransferEvent;
 import com.wat.DataPoller.Handler.PollEventHandler;
-
 import com.wat.DataPoller.Handler.TransferEventHandler;
 
 public class RingBufferGenerator {

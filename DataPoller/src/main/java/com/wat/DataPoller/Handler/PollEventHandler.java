@@ -28,8 +28,8 @@ public class PollEventHandler implements WorkHandler<PollEvent> {
 		PrintRecordInfo(record);
 		
 		// [DeSerialize]
-		Task refactor = new Task();
-		refactor.refactor(record);
+//		Task refactor = new Task();
+//		refactor.refactor(record);
 		
 		// [Initialize]
 		record = null;

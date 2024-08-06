@@ -15,7 +15,7 @@ import com.wat.DataPoller.Class.RAW_BODY;
 import com.wat.DataPoller.Service.TransferRingBufferService;
 
 public class Task {
-	private final TransferRingBufferService ringBufferService = new TransferRingBufferService();
+    private final TransferRingBufferService ringBufferService = TransferRingBufferService.getInstance();
 	
 	// [Task] Overall
 	public void refactor(ConsumerRecord<byte[], byte[]> record) {
